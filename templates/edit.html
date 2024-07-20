@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Task</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-md mx-auto bg-white p-8 rounded shadow-lg">
+        <h1 class="text-2xl font-bold mb-6">Edit Task</h1>
+        <form action="" method="post" class="bg-gray-50 p-6 rounded shadow-md">
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label for="type" class="block text-gray-700 font-bold">Type</label>
+                    <select id="type" name="type" class="w-full p-2 border border-gray-300 rounded mt-1 form-input" required>
+                        <option value="task" {% if task.type == 'task' %}selected{% endif %}>Task</option>
+                        <option value="project" {% if task.type == 'project' %}selected{% endif %}>Project</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="site" class="block text-gray-700 font-bold">Site</label>
+                    <select id="site" name="site" class="w-full p-2 border border-gray-300 rounded mt-1 form-input" required>
+                        <option value="Dammam Site" {% if task.site == 'Dammam Site' %}selected{% endif %}>Dammam Site</option>
+                        <option value="Jubail Plant" {% if task.site == 'Jubail Plant' %}selected{% endif %}>Jubail Plant</option>
+                        <option value="Jubail Yard" {% if task.site == 'Jubail Yard' %}selected{% endif %}>Jubail Yard</option>
+                        <option value="Jubail landfill" {% if task.site == 'Jubail landfill' %}selected{% endif %}>Jubail landfill</option>
+                        <option value="Yanbu Plant" {% if task.site == 'Yanbu Plant' %}selected{% endif %}>Yanbu Plant</option>
+                        <option value="Yanbu 2" {% if task.site == 'Yanbu 2' %}selected{% endif %}>Yanbu 2</option>
+                        <option value="Rabigh Site" {% if task.site == 'Rabigh Site' %}selected{% endif %}>Rabigh Site</option>
+                        <option value="Jouhfa Site" {% if task.site == 'Jouhfa Site' %}selected{% endif %}>Jouhfa Site</option>
+                        <option value="Jeddah Yard" {% if task.site == 'Jeddah Yard' %}selected{% endif %}>Jeddah Yard</option>
+                        <option value="Jazan Yard" {% if task.site == 'Jazan Yard' %}selected{% endif %}>Jazan Yard</option>
+                        <option value="Riyadh Yard" {% if task.site == 'Riyadh Yard' %}selected{% endif %}>Riyadh Yard</option>
+                        <option value="H.Q" {% if task.site == 'H.Q' %}selected{% endif %}>H.Q</option>
+                        <option value="Other" {% if task.site == 'Other' %}selected{% endif %}>Other</option>
+                    </select>
+                </div>
+            </div>
+            <div class="mb-4">
+                <label for="title" class="block text-gray-700 font-bold">Task/Project Title</label>
+                <input type="text" id="title" name="title" class="w-full p-2 border border-gray-300 rounded mt-1 form-input" value="{{ task.title }}" required>
+            </div>
+            <div class="mb-4">
+                <label for="description" class="block text-gray-700 font-bold">Description</label>
+                <textarea id="description" name="description" class="w-full p-2 border border-gray-300 rounded mt-1 form-input" required>{{ task.description }}</textarea>
+            </div>
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label for="start_date" class="block text-gray-700 font-bold">Start Date</label>
+                    <input type="date" id="start_date" name="start_date" class="w-full p-2 border border-gray-300 rounded mt-1 form-input" value="{{ task.start_date }}" required>
+                </div>
+                <div>
+                    <label for="end_date" class="block text-gray-700 font-bold">End Date</label>
+                    <input type="date" id="end_date" name="end_date" class="w-full p-2 border border-gray-300 rounded mt-1 form-input" value="{{ task.end_date }}">
+                </div>
+            </div>
+            <div class="mb-4">
+                <label for="status" class="block text-gray-700 font-bold">Status</label>
+                <select id="status" name="status" class="w-full p-2 border border-gray-300 rounded mt-1 form-input" required>
+                    <option value="not started" {% if task.status == 'not started' %}selected{% endif %}>Not Started</option>
+                    <option value="in progress" {% if task.status == 'in progress' %}selected{% endif %}>In Progress</option>
+                    <option value="completed" {% if task.status == 'completed' %}selected{% endif %}>Completed</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="challenges" class="block text-gray-700 font-bold">Challenges</label>
+                <textarea id="challenges" name="challenges" class="w-full p-2 border border-gray-300 rounded mt-1 form-input">{{ task.challenges }}</textarea>
+            </div>
+            <div class="flex justify-end">
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded">Save</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

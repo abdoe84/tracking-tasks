@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Charts Only</title>
+</head>
+<body>
+    <div>
+        <h2>Number of Tasks by Status</h2>
+        <img src="{{ url_for('static', filename='plots/tasks_by_status.png') }}" alt="Tasks by Status">
+    </div>
+    <div>
+        <h2>Number of Tasks by Type</h2>
+        <img src="{{ url_for('static', filename='plots/tasks_by_type.png') }}" alt="Tasks by Type">
+    </div>
+    <div>
+        <h2>Number of Tasks by Site</h2>
+        <img src="{{ url_for('static', filename='plots/tasks_by_site.png') }}" alt="Tasks by Site">
+    </div>
+    <div>
+        <h2>Task Completion by User</h2>
+        <img src="{{ url_for('static', filename='plots/task_completion_by_user.png') }}" alt="Task Completion by User">
+    </div>
+</body>
+</html>

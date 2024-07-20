@@ -1,0 +1,23 @@
+@media (max-width: 768px) {
+    .grid-cols-2 {
+        grid-template-columns: 1fr;
+    }
+
+    .overflow-x-auto {
+        overflow-x: scroll;
+    }
+
+    .table-row {
+        display: block;
+    }
+
+    th, td {
+        display: block;
+        width: 100%;
+    }
+
+    .px-2, .px-4 {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+}

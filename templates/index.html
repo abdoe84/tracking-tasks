@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task/Project Tracker</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .primary-color {
+            background-color: #6ec1e4; /* اللون الأزرق من الشعار */
+        }
+        .secondary-color {
+            background-color: #a1d6e2; /* اللون الأخضر الفاتح من الشعار */
+        }
+        .text-primary {
+            color: #6ec1e4; /* اللون الأزرق للنص */
+        }
+        .text-secondary {
+            color: #a1d6e2; /* اللون الأخضر الفاتح للنص */
+        }
+        .btn-primary {
+            background-color: #6ec1e4; /* اللون الأزرق */
+            transition: background-color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #5aafc9; /* لون أغمق عند التمرير */
+        }
+        .form-input {
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .form-input:focus {
+            border-color: #6ec1e4; /* تغيير لون الحدود عند التركيز */
+            box-shadow: 0 0 8px rgba(110, 193, 228, 0.5); /* إضافة ظل */
+        }
+        .table-row {
+            transition: background-color 0.3s;
+        }
+        .table-row:hover {
+            background-color: #f1f5f9; /* تغيير لون الصف عند التمرير */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-5xl mx-auto bg-white p-8 rounded shadow-lg">
+        <div class="flex justify-start items-center mb-6">
+            <img src="/static/download.png" alt="Reviva Logo" class="h-16">
+            <h1 class="text-3xl font-bold ml-4 text-primary">Task/Project Tracker</h1>
+        </div>
+        <div class="mb-4 flex justify-end">
+            <a href="/logout" class="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded">Logout</a>
+            {% if is_admin %}
+            <a href="/dash" class="bg-green-500 hover:bg-green-700 text-white px-4 py-2 rounded ml-2">Dashboard</a>
+            {% endif %}
+        </div>
+        <form id="taskForm" action="/submit" method="post" class="bg-gray-50 p-6 rounded shadow-md">
+            <div class="grid grid-cols-3 gap-4 mb-4">
+                <div>
+                    <label for="type" class="block text-gray-700 font-bold">Type</label>
+                    <select id="type" name="type" class="w-full p-2 border border-gray-300 rounded mt-1 form-input" required>
+                        <option value="task">Task</option>
+                        <option value="project">Project</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="site" class="block text-gray-700 font-bold">Site</label>
+                    <select id="site" name="site" class="w-full p-2 border border-gray-300 rounded mt-1 form-input" required>
+                        <option value="Dammam Site">Dammam Site</option>
+                        <option value="Jubail Plant">Jubail Plant</option>
+                        <option value="Jubail Yard">Jubail Yard</option>
+                        <option value="Jubail landfill">Jubail landfill</option>
+                        <option value="Yanbu Plant">Yanbu Plant</option>
+                        <option value="Yanbu 2">Yanbu 2</option>
+                        <option value="Rabigh Site">Rabigh Site</option>
+                        <option value="Jouhfa Site">Jouhfa Site</option>
+                        <option value="Jeddah Yard">Jeddah Yard</option>
+                        <option value="Jazan Yard">Jazan Yard</option>
+                        <option value="Riyadh Yard">Riyadh Yard</option>
+                        <option value="H.Q">H.Q</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="title" class="block text-gray-700 font-bold">Task/Project Title</label>
+                    <input type="text" id="title" name="title" class="w-full p-2 border border-gray-300 rounded mt-1 form-input" required>
+                </div>
+            </div>
+            <div class="grid grid-cols-3 gap-4 mb-4">
+                <div>
+                    <label for="start_date" class="block text-gray-700 font-bold">Start Date</label>
+                    <input type="date" id="start_date" name="start_date" class="w-full p-2 border border-gray-300 rounded mt-1 form-input" required>
+                </div>
+                <div>
+                    <label for="end_date" class="block text-gray-700 font-bold">End Date</label>
+                    <input type="date" id="end_date" name="end_date" class="w-full p-2 border border-gray-300 rounded mt-1 form-input">
+                </div>
+                <div>
+                    <label for="status" class="block text-gray-700 font-bold">Status</label>
+                    <select id="status" name="status" class="w-full p-2 border border-gray-300 rounded mt-1 form-input" required>
+                        <option value="not started">Not Started</option>
+                        <option value="in progress">In Progress</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                </div>
+            </div>
+            <div class="mb-4">
+                <label for="description" class="block text-gray-700 font-bold">Description</label>
+                <textarea id="description" name="description" class="w-full p-2 border border-gray-300 rounded mt-1 form-input" required></textarea>
+            </div>
+            <div class="mb-4">
+                <label for="challenges" class="block text-gray-700 font-bold">Challenges</label>
+                <textarea id="challenges" name="challenges" class="w-full p-2 border border-gray-300 rounded mt-1 form-input"></textarea>
+            </div>
+            <div class="flex justify-end">
+                <button type="submit" class="btn-primary hover:bg-blue-700 text-white px-4 py-2 rounded">Submit</button>
+            </div>
+        </form>
+        <h2 class="text-xl font-bold mt-8">Your Tasks</h2>
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white">
+                <thead>
+                    <tr>
+                        <th class="py-2 px-4 bg-gray-200">ID</th>
+                        <th class="py-2 px-4 bg-gray-200">Type</th>
+                        <th class="py-2 px-4 bg-gray-200">Site</th>
+                        <th class="py-2 px-4 bg-gray-200">Title</th>
+                        <th class="py-2 px-4 bg-gray-200">Description</th>
+                        <th class="py-2 px-4 bg-gray-200">Status</th>
+                        <th class="py-2 px-4 bg-gray-200">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for task in tasks %}
+                    <tr class="table-row">
+                        <td class="border px-2 py-2" style="width: 5%;">{{ task.id }}</td>
+                        <td class="border px-4 py-2" style="width: 10%;">{{ task.type }}</td>
+                        <td class="border px-4 py-2" style="width: 15%;">{{ task.site }}</td>
+                        <td class="border px-4 py-2" style="width: 20%;">{{ task.title }}</td>
+                        <td class="border px-4 py-2" style="width: 30%;">{{ task.description }}</td>
+                        <td class="border px-4 py-2" style="width: 10%;">{{ task.status }}</td>
+                        <td class="border px-4 py-2" style="width: 10%;">
+                            <a href="/edit/{{ task.id }}" class="bg-blue-500 hover:bg-blue-700 text-white px-2 py-1 rounded">Edit</a>
+                            <a href="/delete/{{ task.id }}" class="bg-red-500 hover:bg-red-700 text-white px-2 py-1 rounded">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
